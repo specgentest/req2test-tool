@@ -1,0 +1,9 @@
+SCRIPT-1					| Filter Customer
+Script objective				| Detect faults when validating the behavior of filterCustomerUseCase.execute(fullName, licenseNumber, birthDate, createdAt) with mocked dependencies, ensuring it responds correctly to interactions and conditions
+Location					| filterCustomerUseCase.execute(fullName, licenseNumber, birthDate, createdAt)
+Steps						| [Inform fullName, Inform licenseNumber, Inform birthDate, Inform createdAt, call method execute(fullName, licenseNumber, birthDate, createdAt) in FilterCustomerUseCase class]
+Level						| Unit
+Technique					| White Box
+Selection Criteria				| [Condition/Decision Coverage]
+
+

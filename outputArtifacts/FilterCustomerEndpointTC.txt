@@ -1,0 +1,38 @@
+TC-1						| Get filtered list of instances of Customer and confirm that the method customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							createdAt: current date , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform {createdAt=current date, fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Mock execute(fullName, licenseNumber, birthDate, createdAt) in FilterCustomerUseCase class to return {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Call method customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date in CustomerController class and return a list of filtered instances of Customer, 
+							Verify that execute(fullName, licenseNumber, birthDate, createdAt) was called, 
+							Verify that the endpoint /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date returns 200, 
+							Verify that the endpoint /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date returns {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Expected Result				| Get filtered list of instances of Customer and confirm that the method customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+
+TC-2						| customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter returns internal error 500
+preconditions				| []
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Inform createdAt, 
+							Mock execute(fullName, licenseNumber, birthDate, createdAt) in FilterCustomerUseCase class  to return thrown DataBaseException with the following error message: Failed to retrieve and filter list of Customer from database, 
+							Call method customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter in CustomerController class and return internal error code 500 with the following error message: Failed to retrieve and filter list of Customer from database, 
+							Verify that execute(fullName, licenseNumber, birthDate, createdAt) was called, 
+							Verify that the endpoint /customer/filter returns 500, 
+							Verify that the endpoint /customer/filter contains the message: Failed to retrieve and filter list of Customer from database]
+Expected Result				| customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter returns internal error 500
+
+

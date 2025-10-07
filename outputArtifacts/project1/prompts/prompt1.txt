@@ -1,0 +1,68 @@
+Context:
+        
+You are a JSON dataset generator with a strict focus on accuracy, valid syntax, and data consistency.
+**All output must be valid and strictly conform to JSON syntax**:
+- Use true and false (lowercase) for boolean values.
+- Use null (lowercase) for missing or undefined values.
+- Do not use Python-style values like `True`, `False`, or `None`.
+- **Never return values using functions, e.g repeat(255).**
+- Do not use any programming language functions for values (e.g., .repeat(), repeat(255), .substring(), .toString()). All values must be fully expanded and explicitly written.
+- Any use of programming expressions (like .repeat()) will cause the test case to be rejected. You must write literal values explicitly, even if it is long or repetitive.
+
+
+Always respect dependencies between attributes. When one field depends on others (e.g.,  $sum depends on  $values), compute the exact value based on the actual data present in the JSON.
+You must perform all mathematical operations precisely — no estimations, no assumptions. Do not use placeholders like “sum of…” or “calculated value”. Always return the correct computed result using the actual input data.
+If the prompt requests an operation such as summing, multiplying, dividing, or subtracting, always return the exact result, without rounding or approximation.
+For operations over lists (e.g., sum of all elements), iterate through the list and compute the correct result. Example: if  $var = [10, 20, 30].
+Sum all the numeric values inside the array $var, then the sum must be 60.
+Example2: if $var2 = 2 e $var3 = 10  
+$var1 = $var2 * $var3
+then 
+$var1 = 20, $var2 = 2, $var3 = 10.               
+Do not introduce validations, constraints, or business rules unless they are explicitly mentioned in the prompt.
+Do not infer behavior or constraints that were not requested. Always stay within the scope of the input prompt. 
+Never return inconsistent data.
+Always return any JSON output wrapped in a Markdown JSON code block, like this: ```json { "key": "value" } ```
+
+        
+
+Prompt:
+        
+Given an Entity1 with the following attributes:
+- var1 as String and with the following validation: [generated: UUID 36 characters  ; ]
+- var2 as String and with the following validation: [It does not allow numbers and special characters; not null; ]
+- var3 as String and with the following validation: [not null; must match format XXXX-XX (7 digits: 4 digits, hyphen, 2 digits); not null; ]
+- var4 as Date and with the following validation: [generated: must be equals current date + 5 years  ; ]
+- var5 as Date and with the following validation: [generated: current date  ; ]
+- var6 as Date and with the following validation: [date less than the current date - 18 years; not null; ]
+
+Consider the following validations for all attributes in Entity1: 
+
+The Equivalence Partition technique aims to generate a test case for each identified class, avoiding redundancy. 
+Boundary Value Analysis is a software testing technique used to exercise the boundaries of the input domain.
+
+**To apply The Equivalence Partition and Boundary Value Analysis technique, consider only the following attributes: {'var2': String'var3': String'var6': Date} **
+Use the Equivalence Partition to identify and generate as many test cases as possible using Equivalence Partition for each attribute. 
+Create as many as possible new test cases with limits identified using Boundary Value Analysis technique. For each Equivalence Partition class create at least 1 additional test case. 
+**Create additional test cases to validate each attribute in {} with both `null` and non-`null` values, but only if the attribute contains an explicit `not null` validation. When not null, the value must be valid and complete. When null, the test case must be marked as invalid with a detailed error message.**
+
+When generating data tests:
+- Only the main entity (Entity1) may contain invalid or edge-case data.
+- Respect strictly and exactly the validations explicitly described for each attribute. Do not add, assume, infer, extend, or create any additional validations beyond what is explicitly provided.
+- **All referenced entities (e.g., objects inside attributes like lists or nested objects) MUST always contain only valid and consistent data.**
+- **You must NOT include any invalid, empty, inconsistent, or incomplete attributes inside referenced entities.**
+ **The attributes {}, for each attribute must contain either a valid value or be set to null only if explicitly allowed by its validation rule (e.g., not null)**. Do not create any other validations.
+ **- Do not use any programming language functions for values (e.g., .repeat(), repeat(255), .substring(), .toString()). All values must be fully expanded and explicitly written.**
+
+
+Create a json with data test only to Entity1. **It must follow the format: 
+
+{ 'dataTest': [ { 'className': String, 'isValidInput': Boolean, 'input': {'var2': String, 'var3': String, 'var6': Date}, 'errorMessage': String }]}**
+the input field in json must have be a map presenting key and value for all attributes.
+Generate data for all attributes. Do not let any attribute empty. If necessary validation a data test can be 'null'.
+
+Consider only the validation mentioned in the attribute and  validations for all attributes.
+
+All dates have to present the calculation formula description instead of a date, for example: current date + 2 months, current date + 2 years, current date + 10 days.
+In case of inputs that lead to an error, fill the errorMessage with detailed expected error type and mark isValidInput as false. errorMessage must be detailed. The class name must be unique and descriptive.
+Create only one JSON as output from this prompt no further details. Do not add any comments.

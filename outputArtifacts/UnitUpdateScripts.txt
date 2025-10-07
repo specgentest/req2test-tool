@@ -1,0 +1,9 @@
+SCRIPT-1					| Update of Customer
+Script objective				| Find faults in validate() method int the Customer class after updating attributes
+Location					| validate() method int the Customer class
+Steps						| [Inform  fullName, Inform  licenseNumber, Inform  birthDate, Update the existing instance of Customer with new values informed, Call validate() method in Customer]
+Level						| Unit
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning]
+
+

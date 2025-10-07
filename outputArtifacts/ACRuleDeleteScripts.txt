@@ -1,0 +1,9 @@
+SCRIPT-1					| Delete Customer
+Script objective				| Detect faults when validating the behavior of deleteCustomerUseCase.execute(idCustomer) with mocked dependencies, ensuring it responds correctly to interactions and conditions
+Location					| deleteCustomerUseCase.execute(idCustomer)
+Steps						| [Inform idCustomer, call method execute(idCustomer) in DeleteCustomerUseCase class]
+Level						| Unit
+Technique					| White Box
+Selection Criteria				| [Condition/Decision Coverage]
+
+

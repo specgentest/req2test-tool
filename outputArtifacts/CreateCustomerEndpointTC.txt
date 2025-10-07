@@ -1,0 +1,62 @@
+TC-1						| Create an instance of Customer and confirm that the method customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer saves the instance when all data is valid and unique
+preconditions				| [The repository must be empty, Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Mock execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase class, returning a mocked instance of Customer with informed data: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Call method customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer in CustomerController class and return a saved instance of Customer: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							The input request for the POST endpoint must be strictly: {fullName, licenseNumber, birthDate}, 
+							Verify attributes of created and saved instance of Customer, 
+							Verify that execute(fullName, licenseNumber, birthDate) was called, 
+							Verify that the endpoint /customer returns 201, 
+							Verify that the endpoint /customer contains {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Expected Result				| Create an instance of Customer and confirm that the method customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer saves the instance when all data is valid and unique
+
+TC-2						| customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer returns bad request 400 with the following error message: fullName does not allow numbers and special characters
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							fullName: Invalid123 , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Mock execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase class  to return thrown CustomerException with the following error message: fullName does not allow numbers and special characters, 
+							Call method customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer in CustomerController class and return bad request code 400 with the following error message: fullName does not allow numbers and special characters, 
+							The input request for the POST endpoint must be strictly: {fullName, licenseNumber, birthDate}, 
+							Verify that execute(fullName, licenseNumber, birthDate) was called, 
+							Verify that the endpoint /customer returns 400, 
+							Verify that the endpoint /customer contains the message: fullName does not allow numbers and special characters]
+Expected Result				| customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer returns bad request 400 with the following error message: fullName does not allow numbers and special characters
+
+TC-3						| customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer returns internal error 500
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Mock execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase class  to return thrown DataBaseException with the following error message: Failed to save Customer in the database, 
+							Call method customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer in CustomerController class and return internal error code 500 with the following error message: Failed to save Customer in the database, 
+							The input request for the POST endpoint must be strictly: {fullName, licenseNumber, birthDate}, 
+							Verify that execute(fullName, licenseNumber, birthDate) was called, 
+							Verify that the endpoint /customer returns 500, 
+							Verify that the endpoint /customer contains the message: Failed to save Customer in the database]
+Expected Result				| customerController.customerCreate(fullName, licenseNumber, birthDate) mapped by POST /customer returns internal error 500
+
+

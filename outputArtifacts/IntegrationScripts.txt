@@ -1,0 +1,9 @@
+SCRIPT-1					| Creation of Customer
+Script objective				| Find faults when persisting Customer
+Location					| Use case create Customer
+Steps						| [Inform  fullName, Inform  licenseNumber, Inform  birthDate, Persist a instance of Customer]
+Level						| Integration
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning]
+
+

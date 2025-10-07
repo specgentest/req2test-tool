@@ -1,0 +1,9 @@
+SCRIPT-1					| Create Customer
+Script objective				| Detect faults when validating the behavior of createCustomerUseCase.execute(fullName, licenseNumber, birthDate) with mocked dependencies, ensuring it responds correctly to interactions and conditions
+Location					| createCustomerUseCase.execute(fullName, licenseNumber, birthDate)
+Steps						| [Inform fullName, Inform licenseNumber, Inform birthDate, call method execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase class]
+Level						| Unit
+Technique					| White Box
+Selection Criteria				| [Condition/Decision Coverage]
+
+

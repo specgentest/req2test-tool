@@ -1,0 +1,56 @@
+TC-1						| Get an existing instance of Customer and confirm that the method customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock execute(idCustomer) in GetCustomerUseCase class to return {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Call method customerGet(idCustomer) mapped by GET /customer/123e4567-e89b-12d3-a456-426614174000 in CustomerController class and return an existing instance of Customer, 
+							Verify that execute(idCustomer) was called, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 returns 200, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 returns {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Expected Result				| Get an existing instance of Customer and confirm that the method customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+
+TC-2						| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer does not get an instance of Customer then returns not found 404
+preconditions				| []
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock execute(idCustomer) in GetCustomerUseCase class to return CustomerException with the following error message: Customer not found, 
+							Call method customerGet(idCustomer) mapped by GET /customer/123e4567-e89b-12d3-a456-426614174000 in CustomerController class and It returns not found code 404 with the following message: Customer not found, 
+							Verify that execute(idCustomer) was called, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 returns 404, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 contains the message: Customer not found]
+Expected Result				| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer does not get an instance of Customer then returns not found 404
+
+TC-3						| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer returns bad request 400 with the following error message: invalid idCustomer type
+preconditions				| []
+Input						| [
+							idCustomer: invalid-uuid ]
+Steps						| [
+							Inform idCustomer, 
+							Call method customerGet(idCustomer) mapped by GET /customer/invalid-uuid in CustomerController class, 
+							Verify that the endpoint /customer/invalid-uuid returns 400, 
+							Verify that the endpoint /customer/invalid-uuid contains the message: invalid idCustomer type]
+Expected Result				| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer returns bad request 400 with the following error message: invalid idCustomer type
+
+TC-4						| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer returns internal error 500
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform idCustomer, 
+							Mock execute(idCustomer) in GetCustomerUseCase class  to return thrown DataBaseException with the following error message: Failed to retrieve Customer from database, 
+							Call method customerGet(idCustomer) mapped by GET /customer/123e4567-e89b-12d3-a456-426614174000 in CustomerController class and return internal error code 500 with the following error message: Failed to retrieve Customer from database, 
+							Verify that execute(idCustomer) was called, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 returns 500, 
+							Verify that the endpoint /customer/123e4567-e89b-12d3-a456-426614174000 contains the message: Failed to retrieve Customer from database]
+Expected Result				| customerController.customerGet(idCustomer) mapped by GET /customer/idCustomer returns internal error 500
+
+

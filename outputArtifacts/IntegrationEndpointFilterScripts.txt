@@ -1,0 +1,9 @@
+SCRIPT-1					| Filter Customer
+Script objective				| Detect faults when validating the behavior of customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt), ensuring it responds correctly to interactions and conditions
+Location					| customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt)
+Steps						| [Inform fullName, Inform licenseNumber, Inform birthDate, Inform createdAt, call endpoint /customer/filter mapped by customerFilter(fullName, licenseNumber, birthDate, createdAt) in CustomerController class]
+Level						| Integration
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning]
+
+

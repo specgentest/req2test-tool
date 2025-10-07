@@ -1,0 +1,158 @@
+TC-0						| 
+Technique					| White Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform {fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Call the constructor Customer(fullName, licenseNumber, birthDate) with the following: {fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Verify that CustomerException was not called, 
+							Verify all attributes, 
+							Verify that method validate() was called]
+Expected Result				| Instance of Customer created and validate() method called
+
+TC-1						| 
+Technique					| White Box
+Input						| [
+							fullName: Invalid123 , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform {fullName=Invalid123, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Call the constructor Customer(fullName, licenseNumber, birthDate) with the following: {fullName=Invalid123, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Verify that CustomerException was called whit the following message: , 
+							Verify that method validate() was called]
+Expected Result				| Instance of Customer was not created and validate() method was called
+
+TC-2						| ValidfullNameAlphabetic
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| Customer created
+
+TC-3						| InvalidfullNameWithNumbers
+Technique					| Black Box
+Input						| [
+							fullName: Invalid123 , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| fullName does not allow numbers and special characters
+
+TC-4						| InvalidfullNameWithSpecialCharacters
+Technique					| Black Box
+Input						| [
+							fullName: Invalid@String , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| fullName does not allow numbers and special characters
+
+TC-5						| NullfullName
+Technique					| Black Box
+Input						| [
+							fullName: null , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| fullName cannot be null
+
+TC-6						| ValidlicenseNumberFormat
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| Customer created
+
+TC-7						| InvalidlicenseNumberFormat
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 123456 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| licenseNumber must match format XXXX-XX
+
+TC-8						| NulllicenseNumber
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: null , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| licenseNumber cannot be null
+
+TC-9						| ValidbirthDateDate
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| Customer created
+
+TC-10						| InvalidbirthDateDateTooRecent
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 10 years ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| birthDate must be a date less than the current date - 18 years
+
+TC-11						| NullbirthDate
+Technique					| Black Box
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: null ]
+Steps						| [
+							Inform  fullName, 
+							Inform  licenseNumber, 
+							Inform  birthDate, 
+							Create an instance of Customer]
+Expected Result				| birthDate cannot be null
+
+

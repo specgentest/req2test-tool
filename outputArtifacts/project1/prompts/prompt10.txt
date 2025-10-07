@@ -1,0 +1,146 @@
+Context:
+        
+As a test class generator, implement the following unit test cases using Java, Spring Boot, JUnit5, mockMvc and Mockito.
+                Follow strict the steps provided in test case.
+                Generate only the test class—no additional artifacts, comments, or explanatory text.
+                When verifying that the response contains a message, use containsString (e.g .andExpect(content().string(containsString("string")).
+                **When the return is a JSON, use MockMvcResultMatchers.jsonPath to verify its elements.**.
+                **When using @WebMvcTest, always use @MockBean to mock dependencies of the controller, instead of @Mock.**
+                All test methods using MockMvc must declare throws Exception.
+                When mocking an object to throw an exception, always use doThrow; e.g., doThrow(new DataBaseException("")).when(operationUseCase).execute().
+                 
+                 Use the following template for endpoint test classes with mocks:
+
+                 @WebMvcTest(ClassController.class)
+                 public class ClassControllerUnitTest {
+
+                     @Autowired
+                     private MockMvc mockMvc;
+
+                     @MockBean
+                     private ClassUseCase classUseCase;
+
+                 }
+                 
+        
+
+Prompt:
+        
+
+Consider type Date as LocalDate. Consider type Time as LocalTime.
+Structure each test case using the Arrange-Act-Assert pattern: 
+                        first set up the necessary objects and data (Arrange), 
+                        then execute the operation being tested (Act), 
+                        and finally verify the result (Assert).
+                        Add all necessary imports (e.g. Asserts and verify from JUnit5, LocalDate).
+                        Always preserve the original data type. Do not convert numeric strings to integers.
+                        Use UUID.fromString to initialize UUID.
+                        All objects used in the test class must be imported.
+                        When necessary:
+                         - Ensure all model classes are imported from req2test.tool.outputArtefacts/project1.model
+                         - Ensure all exception classes are imported from req2test.tool.outputArtefacts/project1.exception
+                         - Ensure all repository classes are imported from req2test.tool.outputArtefacts/project1.repository
+                         - Ensure all use case classes are imported from req2test.tool.outputArtefacts/project1.usecase
+                         - Ensure all controller classes are imported from req2test.tool.outputArtefacts/project1.controller
+                        
+                        You must strictly follow these rules:
+                        
+                        Method Names
+                            1.	Do not rename, replace, or modify any method names explicitly described in the test case or scenario.
+                            2.	The following method names must be preserved exactly as they are:
+                            - save
+                            - findById
+                            - getAll
+                            - update
+                            - partialUpdate
+                            - deleteById
+                            - filter
+                            3.	You must not make any of the following substitutions:
+                            - **Do not replace update with save**.
+                            - Do not replace findById with getById.
+                            - Do not replace deleteById with remove.
+                            - Do not change partialUpdate to update or save.
+                            - Do not change filter to search or any synonym.
+                            4.	Preserve all method names, class names, and their signatures exactly as provided, even if they seem unusual or non-standard.
+                            5.	Any deviation from these instructions constitutes a critical error and is unacceptable.
+                        
+                        Exception Names
+                            6.	Do not rename, replace, generalize, or remove any exception names explicitly mentioned in the test case or code context.
+                            7.	The following exception names must be preserved exactly as they are:
+                            - DataIntegrityViolationException
+                            8.	You must not:
+                            - Replace DataIntegrityViolationException with a more general or different exception.
+                            - Remove exception handling logic or change its semantics.
+                            9.	Exception names, their handling, and any messages must be preserved exactly as provided in the test case or scenario.
+                        
+                        General
+                            10.	You may only improve clarity, structure, or formatting of the text.
+                            11.	You must not alter the semantics, logic, method names, or exception names in any way.
+                            12.	Always prioritize fidelity to the original test case over generalization, simplification, or stylistic improvements.
+
+                        Variable types:
+                            1. Do not change varibales type: e.g, if the type is float do not change to float
+                        
+                        For a request test case: When the JSON input request includes a related object (e.g., Author), it must refer only to the object’s ID, not the full object representation.
+                        Correct JSON input request
+                        
+                        {
+                              "id": 1,
+                              "title": "1984",
+                              "publicationYear": 1949,
+                              "idAuthor": 1
+                        }
+                        
+                        Incorrect JSON input request
+                        
+                        {
+                              "id": 1,
+                              "title": "1984",
+                              "publicationYear": 1949,
+                              "author": {"idAuthor": 1}
+                        }
+                        
+                        **The related object’s field must always use id as a prefix (e.g., idAuthor).**
+                        
+                        If time fields is a string in response assert request, then represent it in the format HH:mm (e.g., 09:00:00).
+
+                        Use test description as base to test case name.
+                        Below are the test cases for the class FilterCustomerControllerUnitTest:
+                test description: Get filtered list of instances of Customer and confirm that the method customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+preconditions				| [Use Customer constructor with all attributes as parameters to mock an instance]
+Input of the Endpoint						| [
+							createdAt: current date , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform {createdAt=current date, fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Mock execute(fullName, licenseNumber, birthDate, createdAt) in FilterCustomerUseCase class to return {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Call method customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date in CustomerController class and return a list of filtered instances of Customer, 
+							Verify that execute(fullName, licenseNumber, birthDate, createdAt) was called, 
+							Verify that the endpoint /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date returns 200, 
+							Verify that the endpoint /customer/filter?fullName=ValidString&licenseNumber=1234-56&birthDate=current date - 20 years&createdAt=current date returns {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Expected Result				| Get filtered list of instances of Customer and confirm that the method customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter gets the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+
+test description: customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter returns internal error 500
+preconditions				| []
+Input of the Endpoint						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Inform createdAt, 
+							Mock execute(fullName, licenseNumber, birthDate, createdAt) in FilterCustomerUseCase class  to return thrown DataBaseException with the following error message: Failed to retrieve and filter list of Customer from database, 
+							Call method customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter in CustomerController class and return internal error code 500 with the following error message: Failed to retrieve and filter list of Customer from database, 
+							Verify that execute(fullName, licenseNumber, birthDate, createdAt) was called, 
+							Verify that the endpoint /customer/filter returns 500, 
+							Verify that the endpoint /customer/filter contains the message: Failed to retrieve and filter list of Customer from database]
+Expected Result				| customerController.customerFilter(fullName, licenseNumber, birthDate, createdAt) mapped by GET /customer/filter returns internal error 500
+
+

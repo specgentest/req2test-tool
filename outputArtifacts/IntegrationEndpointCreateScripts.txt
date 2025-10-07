@@ -1,0 +1,9 @@
+SCRIPT-1					| Create Customer
+Script objective				| Detect faults when validating the behavior of customerController.customerCreate(fullName, licenseNumber, birthDate), ensuring it responds correctly to interactions and conditions
+Location					| customerController.customerCreate(fullName, licenseNumber, birthDate)
+Steps						| [Inform fullName, Inform licenseNumber, Inform birthDate, call endpoint /customer mapped by customerCreate(fullName, licenseNumber, birthDate) in CustomerController class]
+Level						| Integration
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning]
+
+

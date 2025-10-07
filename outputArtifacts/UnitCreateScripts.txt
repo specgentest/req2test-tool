@@ -1,0 +1,9 @@
+SCRIPT-1					| Creation of Triangle
+Script objective				| Find faults when creating a new Triangle
+Location					| Triangle constructor
+Steps						| [Inform  A, Inform  B, Inform  C, Create an instance of Triangle]
+Level						| Unit
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning, Boundary Value Evaluation]
+
+

@@ -1,0 +1,28 @@
+TC-1						| validate() success when all fields of Customer are updated correctly, resulting in {fullName=AnotherValid, licenseNumber=5678-90, birthDate=current date - 25 years}
+preconditions				| [Initially It must have to create an instance of Customer as following: {fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, Use the constructor Customer(fullName, licenseNumber, birthDate)]
+Input						| [
+							fullName: AnotherValid , 
+							licenseNumber: 5678-90 , 
+							birthDate: current date - 25 years ]
+Steps						| [
+							Inform {fullName=AnotherValid, licenseNumber=5678-90, birthDate=current date - 25 years}, 
+							Use the setter method of each attribute to update the existing instance of Customer, 
+							Call method validate() in Customer class, 
+							Verify that CustomerException was not called, 
+							Verify all attributes updated]
+Expected Result				| validate() success when all fields of Customer are updated correctly, resulting in {fullName=AnotherValid, licenseNumber=5678-90, birthDate=current date - 25 years}
+
+TC-2						| validate() fails and CustomerException is thrown
+preconditions				| [Initially It must have to create an instance of Customer as following: {fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}, Use the constructor Customer(fullName, licenseNumber, birthDate)]
+Input						| [
+							fullName: Invalid123 , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform {fullName=Invalid123, licenseNumber=1234-56, birthDate=current date - 20 years}, 
+							Use the setter method of each attribute to update the existing instance of Customer, 
+							Call method validate() in Customer class, 
+							Verify that CustomerException is thrown with the following message: fullName does not allow numbers and special characters]
+Expected Result				| validate() fails and CustomerException is thrown
+
+

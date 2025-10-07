@@ -1,0 +1,7 @@
+[Triangle
+name: idTriangle - type: Int - validations: []
+name: A - type: Int - validations: [greater than 0]
+name: B - type: Int - validations: [greater than 0]
+name: C - type: Int - validations: [greater than 0]
+name: form Triangle - detailed rule: %Triangle.A < ( %Triangle.B + %Triangle.C ) AND %Triangle.B < ( %Triangle.A + %Triangle.C ) AND %Triangle.C < ( %Triangle.A + %Triangle.B )
+]

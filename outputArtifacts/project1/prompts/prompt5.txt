@@ -1,0 +1,146 @@
+Context:
+        
+As a test class generator, implement the following unit test cases using Java, JUnit5 and Mockito.Follow strict the steps provided in test case.Generate only the test class—no additional artifacts, comments, or explanatory text.
+
+        
+
+Prompt:
+        
+
+Consider type Date as LocalDate. Consider type Time as LocalTime.
+Structure each test case using the Arrange-Act-Assert pattern: 
+                        first set up the necessary objects and data (Arrange), 
+                        then execute the operation being tested (Act), 
+                        and finally verify the result (Assert).
+                        Add all necessary imports (e.g. Asserts and verify from JUnit5, LocalDate).
+                        Always preserve the original data type. Do not convert numeric strings to integers.
+                        Use UUID.fromString to initialize UUID.
+                        All objects used in the test class must be imported.
+                        When necessary:
+                         - Ensure all model classes are imported from req2test.tool.outputArtefacts/project1.model
+                         - Ensure all exception classes are imported from req2test.tool.outputArtefacts/project1.exception
+                         - Ensure all repository classes are imported from req2test.tool.outputArtefacts/project1.repository
+                         - Ensure all use case classes are imported from req2test.tool.outputArtefacts/project1.usecase
+                         - Ensure all controller classes are imported from req2test.tool.outputArtefacts/project1.controller
+                        
+                        You must strictly follow these rules:
+                        
+                        Method Names
+                            1.	Do not rename, replace, or modify any method names explicitly described in the test case or scenario.
+                            2.	The following method names must be preserved exactly as they are:
+                            - save
+                            - findById
+                            - getAll
+                            - update
+                            - partialUpdate
+                            - deleteById
+                            - filter
+                            3.	You must not make any of the following substitutions:
+                            - **Do not replace update with save**.
+                            - Do not replace findById with getById.
+                            - Do not replace deleteById with remove.
+                            - Do not change partialUpdate to update or save.
+                            - Do not change filter to search or any synonym.
+                            4.	Preserve all method names, class names, and their signatures exactly as provided, even if they seem unusual or non-standard.
+                            5.	Any deviation from these instructions constitutes a critical error and is unacceptable.
+                        
+                        Exception Names
+                            6.	Do not rename, replace, generalize, or remove any exception names explicitly mentioned in the test case or code context.
+                            7.	The following exception names must be preserved exactly as they are:
+                            - DataIntegrityViolationException
+                            8.	You must not:
+                            - Replace DataIntegrityViolationException with a more general or different exception.
+                            - Remove exception handling logic or change its semantics.
+                            9.	Exception names, their handling, and any messages must be preserved exactly as provided in the test case or scenario.
+                        
+                        General
+                            10.	You may only improve clarity, structure, or formatting of the text.
+                            11.	You must not alter the semantics, logic, method names, or exception names in any way.
+                            12.	Always prioritize fidelity to the original test case over generalization, simplification, or stylistic improvements.
+
+                        Variable types:
+                            1. Do not change varibales type: e.g, if the type is float do not change to float
+                        
+                        For a request test case: When the JSON input request includes a related object (e.g., Author), it must refer only to the object’s ID, not the full object representation.
+                        Correct JSON input request
+                        
+                        {
+                              "id": 1,
+                              "title": "1984",
+                              "publicationYear": 1949,
+                              "idAuthor": 1
+                        }
+                        
+                        Incorrect JSON input request
+                        
+                        {
+                              "id": 1,
+                              "title": "1984",
+                              "publicationYear": 1949,
+                              "author": {"idAuthor": 1}
+                        }
+                        
+                        **The related object’s field must always use id as a prefix (e.g., idAuthor).**
+                        
+                        If time fields is a string in response assert request, then represent it in the format HH:mm (e.g., 09:00:00).
+
+                        Use test description as base to test case name.
+                        Below are the test cases for the class GetCustomerUseCaseUnitTest:
+                test description: testGetCustomer
+name: idCustomer - type: String - validations: []
+name: fullName - type: String - validations: [It does not allow numbers and special characters, not null]
+name: licenseNumber - type: String - validations: [not null, must match format XXXX-XX (7 digits: 4 digits, hyphen, 2 digits), not null]
+name: licenseNumberExpirationDate - type: Date - validations: []
+name: createdAt - type: Date - validations: []
+name: birthDate - type: Date - validations: [date less than the current date - 18 years, not null]
+_ValidIDSuccessfully
+preconditions				| [The repository must have the instance that will be retrieved with the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, The following data: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Input of the Endpoint						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository, returning a mocked instance of Customer with informed data, the same mocked in repository, 
+							Call method execute(idCustomer) in GetCustomerUseCase class and return an existing instance of Customer, 
+							Verify attributes of retrieved of Customer, 
+							Verify mocks]
+Expected Result				| Get an existing instance of Customer with the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+
+test description: testGetCustomer
+name: idCustomer - type: String - validations: []
+name: fullName - type: String - validations: [It does not allow numbers and special characters, not null]
+name: licenseNumber - type: String - validations: [not null, must match format XXXX-XX (7 digits: 4 digits, hyphen, 2 digits), not null]
+name: licenseNumberExpirationDate - type: Date - validations: []
+name: createdAt - type: Date - validations: []
+name: birthDate - type: Date - validations: [date less than the current date - 18 years, not null]
+_InstanceNotFound
+preconditions				| [The repository must have no instance and It must return false]
+Input of the Endpoint						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository, according to preconditions, 
+							Call method execute(idCustomer) in GetCustomerUseCase, 
+							Verify that CustomerException is thrown with the following error message: Customer not found, 
+							Verify mocks]
+Expected Result				| getCustomerUseCase.execute(idCustomer) does not get an instance of Customer. CustomerException is thrown
+
+test description: testGetCustomer
+name: idCustomer - type: String - validations: []
+name: fullName - type: String - validations: [It does not allow numbers and special characters, not null]
+name: licenseNumber - type: String - validations: [not null, must match format XXXX-XX (7 digits: 4 digits, hyphen, 2 digits), not null]
+name: licenseNumberExpirationDate - type: Date - validations: []
+name: createdAt - type: Date - validations: []
+name: birthDate - type: Date - validations: [date less than the current date - 18 years, not null]
+_DBCommunicationError
+preconditions				| []
+Input of the Endpoint						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository to return org.springframework.dao.DataIntegrityViolationException when try to retrieve Customer, 
+							Call method execute(idCustomer) in GetCustomerUseCase, 
+							Verify that DataBaseException is thrown, 
+							Verify mocks]
+Expected Result				| DataBaseException is thrown
+
+

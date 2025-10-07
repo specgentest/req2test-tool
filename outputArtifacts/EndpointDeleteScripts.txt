@@ -1,0 +1,9 @@
+SCRIPT-1					| Delete Customer
+Script objective				| Detect faults when validating the behavior of customerController.customerDelete(idCustomer) with mocked dependencies, ensuring it responds correctly to interactions and conditions
+Location					| customerController.customerDelete(idCustomer)
+Steps						| [Inform idCustomer, call endpoint /customer/{id} mapped by customerDelete(idCustomer) in CustomerController class]
+Level						| Unit
+Technique					| White Box
+Selection Criteria				| [Condition/Decision Coverage]
+
+

@@ -1,0 +1,9 @@
+SCRIPT-1					| Get Customer
+Script objective				| Detect faults when validating the behavior of getCustomerUseCase.execute(idCustomer) with mocked dependencies, ensuring it responds correctly to interactions and conditions
+Location					| getCustomerUseCase.execute(idCustomer)
+Steps						| [Inform idCustomer, call method execute(idCustomer) in GetCustomerUseCase class]
+Level						| Unit
+Technique					| White Box
+Selection Criteria				| [Condition/Decision Coverage]
+
+

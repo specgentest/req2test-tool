@@ -1,0 +1,277 @@
+Context:
+        
+You are a JSON dataset generator with a strict focus on accuracy, valid syntax, and data consistency.
+**All output must be valid and strictly conform to JSON syntax**:
+- Use true and false (lowercase) for boolean values.
+- Use null (lowercase) for missing or undefined values.
+- Do not use Python-style values like `True`, `False`, or `None`.
+- **Never return values using functions, e.g repeat(255).**
+- Do not use any programming language functions for values (e.g., .repeat(), repeat(255), .substring(), .toString()). All values must be fully expanded and explicitly written.
+- Any use of programming expressions (like .repeat()) will cause the test case to be rejected. You must write literal values explicitly, even if it is long or repetitive.
+
+
+Always respect dependencies between attributes. When one field depends on others (e.g.,  $sum depends on  $values), compute the exact value based on the actual data present in the JSON.
+You must perform all mathematical operations precisely — no estimations, no assumptions. Do not use placeholders like “sum of…” or “calculated value”. Always return the correct computed result using the actual input data.
+If the prompt requests an operation such as summing, multiplying, dividing, or subtracting, always return the exact result, without rounding or approximation.
+For operations over lists (e.g., sum of all elements), iterate through the list and compute the correct result. Example: if  $var = [10, 20, 30].
+Sum all the numeric values inside the array $var, then the sum must be 60.
+Example2: if $var2 = 2 e $var3 = 10  
+$var1 = $var2 * $var3
+then 
+$var1 = 20, $var2 = 2, $var3 = 10.               
+Do not introduce validations, constraints, or business rules unless they are explicitly mentioned in the prompt.
+Do not infer behavior or constraints that were not requested. Always stay within the scope of the input prompt. 
+Never return inconsistent data.
+Always return any JSON output wrapped in a Markdown JSON code block, like this: ```json { "key": "value" } ```
+
+        
+
+Prompt:
+        
+Given the testing data below for Customer, create 1 unit test for each input. Use Junit5. Tests must consider inputs to the constructor. If the input is not valid, an exception must be thrown with the error message. The name of the thrown exception must be CustomerException. 
+
+Consider the types:
+Customer
+- fullName: String
+- licenseNumber: String
+- birthDate: Date
+
+Consider type Date as LocalDate. Consider type Time as LocalTime.
+
+Ensure all model classes are imported from req2test.tool.outputArtefacts/project1.model.
+
+Ensure all exception classes are imported from req2test.tool.outputArtefacts/project1.exception.
+
+Add all necessary imports (e.g. Asserts and verify from JUnit5, LocalDate).
+Structure each test case using the Arrange-Act-Assert pattern: 
+                        first set up the necessary objects and data (Arrange), 
+                        then execute the operation being tested (Act), 
+                        and finally verify the result (Assert).
+                        
+Create only the CustomerTest class as output from this prompt. Do not generate Customer class and CustomerException class.
+
+{"dataTest":[{"input":{"fullName":"ValidString","licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":true,"errorMessage":"","className":"ValidfullNameAlphabetic"},{"input":{"fullName":"Invalid123","licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":false,"errorMessage":"fullName does not allow numbers and special characters","className":"InvalidfullNameWithNumbers"},{"input":{"fullName":"Invalid@String","licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":false,"errorMessage":"fullName does not allow numbers and special characters","className":"InvalidfullNameWithSpecialCharacters"},{"input":{"fullName":null,"licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":false,"errorMessage":"fullName cannot be null","className":"NullfullName"},{"input":{"fullName":"ValidString","licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":true,"errorMessage":"","className":"ValidlicenseNumberFormat"},{"input":{"fullName":"ValidString","licenseNumber":"123456","birthDate":"current date - 20 years"},"isValidInput":false,"errorMessage":"licenseNumber must match format XXXX-XX","className":"InvalidlicenseNumberFormat"},{"input":{"fullName":"ValidString","licenseNumber":null,"birthDate":"current date - 20 years"},"isValidInput":false,"errorMessage":"licenseNumber cannot be null","className":"NulllicenseNumber"},{"input":{"fullName":"ValidString","licenseNumber":"1234-56","birthDate":"current date - 20 years"},"isValidInput":true,"errorMessage":"","className":"ValidbirthDateDate"},{"input":{"fullName":"ValidString","licenseNumber":"1234-56","birthDate":"current date - 10 years"},"isValidInput":false,"errorMessage":"birthDate must be a date less than the current date - 18 years","className":"InvalidbirthDateDateTooRecent"},{"input":{"fullName":"ValidString","licenseNumber":"1234-56","birthDate":null},"isValidInput":false,"errorMessage":"birthDate cannot be null","className":"NullbirthDate"}],"llmMessageHistory":[{"role":"system","content":"You are a JSON dataset generator with a strict focus on accuracy, valid syntax, and data consistency.
+**All output must be valid and strictly conform to JSON syntax**:
+- Use true and false (lowercase) for boolean values.
+- Use null (lowercase) for missing or undefined values.
+- Do not use Python-style values like `True`, `False`, or `None`.
+- **Never return values using functions, e.g repeat(255).**
+- Do not use any programming language functions for values (e.g., .repeat(), repeat(255), .substring(), .toString()). All values must be fully expanded and explicitly written.
+- Any use of programming expressions (like .repeat()) will cause the test case to be rejected. You must write literal values explicitly, even if it is long or repetitive.
+
+
+Always respect dependencies between attributes. When one field depends on others (e.g.,  $sum depends on  $values), compute the exact value based on the actual data present in the JSON.
+You must perform all mathematical operations precisely — no estimations, no assumptions. Do not use placeholders like “sum of…” or “calculated value”. Always return the correct computed result using the actual input data.
+If the prompt requests an operation such as summing, multiplying, dividing, or subtracting, always return the exact result, without rounding or approximation.
+For operations over lists (e.g., sum of all elements), iterate through the list and compute the correct result. Example: if  $var = [10, 20, 30].
+Sum all the numeric values inside the array $var, then the sum must be 60.
+Example2: if $var2 = 2 e $var3 = 10  
+$var1 = $var2 * $var3
+then 
+$var1 = 20, $var2 = 2, $var3 = 10.               
+Do not introduce validations, constraints, or business rules unless they are explicitly mentioned in the prompt.
+Do not infer behavior or constraints that were not requested. Always stay within the scope of the input prompt. 
+Never return inconsistent data.
+Always return any JSON output wrapped in a Markdown JSON code block, like this: ```json { \"key\": \"value\" } ```
+"},{"role":"user","content":"Given an Entity1 with the following attributes:\
+- var1 as String and with the following validation: [generated: UUID 36 characters  ; ]\
+- var2 as String and with the following validation: [It does not allow numbers and special characters; not null; ]\
+- var3 as String and with the following validation: [not null; must match format XXXX-XX (7 digits: 4 digits, hyphen, 2 digits); not null; ]\
+- var4 as Date and with the following validation: [generated: must be equals current date + 5 years  ; ]\
+- var5 as Date and with the following validation: [generated: current date  ; ]\
+- var6 as Date and with the following validation: [date less than the current date - 18 years; not null; ]\
+\
+Consider the following validations for all attributes in Entity1: \
+\
+The Equivalence Partition technique aims to generate a test case for each identified class, avoiding redundancy. \
+Boundary Value Analysis is a software testing technique used to exercise the boundaries of the input domain.\
+\
+**To apply The Equivalence Partition and Boundary Value Analysis technique, consider only the following attributes: {'var2': String'var3': String'var6': Date} **\
+Use the Equivalence Partition to identify and generate as many test cases as possible using Equivalence Partition for each attribute. \
+Create as many as possible new test cases with limits identified using Boundary Value Analysis technique. For each Equivalence Partition class create at least 1 additional test case. \
+**Create additional test cases to validate each attribute in {} with both `null` and non-`null` values, but only if the attribute contains an explicit `not null` validation. When not null, the value must be valid and complete. When null, the test case must be marked as invalid with a detailed error message.**\
+\
+When generating data tests:\
+- Only the main entity (Entity1) may contain invalid or edge-case data.\
+- Respect strictly and exactly the validations explicitly described for each attribute. Do not add, assume, infer, extend, or create any additional validations beyond what is explicitly provided.\
+- **All referenced entities (e.g., objects inside attributes like lists or nested objects) MUST always contain only valid and consistent data.**\
+- **You must NOT include any invalid, empty, inconsistent, or incomplete attributes inside referenced entities.**\
+ **The attributes {}, for each attribute must contain either a valid value or be set to null only if explicitly allowed by its validation rule (e.g., not null)**. Do not create any other validations.\
+ **- Do not use any programming language functions for values (e.g., .repeat(), repeat(255), .substring(), .toString()). All values must be fully expanded and explicitly written.**\
+\
+\
+Create a json with data test only to Entity1. **It must follow the format: \
+\
+{ 'dataTest': [ { 'className': String, 'isValidInput': Boolean, 'input': {'var2': String, 'var3': String, 'var6': Date}, 'errorMessage': String }]}**\
+the input field in json must have be a map presenting key and value for all attributes.\
+Generate data for all attributes. Do not let any attribute empty. If necessary validation a data test can be 'null'.\
+\
+Consider only the validation mentioned in the attribute and  validations for all attributes.\
+\
+All dates have to present the calculation formula description instead of a date, for example: current date + 2 months, current date + 2 years, current date + 10 days.\
+In case of inputs that lead to an error, fill the errorMessage with detailed expected error type and mark isValidInput as false. errorMessage must be detailed. The class name must be unique and descriptive.\
+Create only one JSON as output from this prompt no further details. Do not add any comments."},{"role":"assistant","content":"```json
+{
+  \"dataTest\": [
+    {
+      \"className\": \"ValidVar2Alphabetic\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"InvalidVar2WithNumbers\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"Invalid123\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"var2 does not allow numbers and special characters\"
+    },
+    {
+      \"className\": \"InvalidVar2WithSpecialCharacters\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"Invalid@String\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"var2 does not allow numbers and special characters\"
+    },
+    {
+      \"className\": \"NullVar2\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": null,
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"var2 cannot be null\"
+    },
+    {
+      \"className\": \"ValidVar3Format\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"InvalidVar3Format\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"123456\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"var3 must match format XXXX-XX\"
+    },
+    {
+      \"className\": \"NullVar3\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": null,
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"var3 cannot be null\"
+    },
+    {
+      \"className\": \"ValidVar6Date\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"InvalidVar6DateTooRecent\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var6\": \"current date - 10 years\"
+      },
+      \"errorMessage\": \"var6 must be a date less than the current date - 18 years\"
+    },
+    {
+      \"className\": \"NullVar6\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var6\": null
+      },
+      \"errorMessage\": \"var6 cannot be null\"
+    }
+  ]
+}
+```"},{"role":"user","content":"Generate three new valid data, and one valid data with only invalid type of Var1 with the error message 'invalid id'. Consider all attributes. 
+ Do not ignore any attribute.
+the input field in json must have be a map presenting key and value for all attributes."},{"role":"assistant","content":"```json
+{
+  \"dataTest\": [
+    {
+      \"className\": \"ValidData1\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var1\": \"123e4567-e89b-12d3-a456-426614174000\",
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var4\": \"current date + 5 years\",
+        \"var5\": \"current date\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"ValidData2\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var1\": \"123e4567-e89b-12d3-a456-426614174001\",
+        \"var2\": \"AnotherValid\",
+        \"var3\": \"5678-90\",
+        \"var4\": \"current date + 5 years\",
+        \"var5\": \"current date\",
+        \"var6\": \"current date - 25 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"ValidData3\",
+      \"isValidInput\": true,
+      \"input\": {
+        \"var1\": \"123e4567-e89b-12d3-a456-426614174002\",
+        \"var2\": \"MoreValidData\",
+        \"var3\": \"4321-12\",
+        \"var4\": \"current date + 5 years\",
+        \"var5\": \"current date\",
+        \"var6\": \"current date - 30 years\"
+      },
+      \"errorMessage\": \"\"
+    },
+    {
+      \"className\": \"InvalidVar1Type\",
+      \"isValidInput\": false,
+      \"input\": {
+        \"var1\": \"invalid-uuid\",
+        \"var2\": \"ValidString\",
+        \"var3\": \"1234-56\",
+        \"var4\": \"current date + 5 years\",
+        \"var5\": \"current date\",
+        \"var6\": \"current date - 20 years\"
+      },
+      \"errorMessage\": \"invalid id\"
+    }
+  ]
+}
+```"}],"varDictionaryAttributes":{"var1":"$idCustomer","Var1":"$idCustomer","var2":"$fullName","Var2":"$fullName","var3":"$licenseNumber","Var3":"$licenseNumber","var4":"$licenseNumberExpirationDate","Var4":"$licenseNumberExpirationDate","var5":"$createdAt","Var5":"$createdAt","var6":"$birthDate","Var6":"$birthDate"},"varDictionaryEntities":{"%Customer":"Entity1","Customer":"Entity1"},"entitiesAllVariables":{"Customer":{"var6":"Date","var5":"Date","var4":"Date","var3":"String","var2":"String","var1":"String"}}}

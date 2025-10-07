@@ -1,0 +1,9 @@
+SCRIPT-1					| Get Customer
+Script objective				| Detect faults when validating the behavior of customerController.customerGet(idCustomer), ensuring it responds correctly to interactions and conditions
+Location					| customerController.customerGet(idCustomer)
+Steps						| [Inform idCustomer, call endpoint /customer/{id} mapped by customerGet(idCustomer) in CustomerController class]
+Level						| Integration
+Technique					| Black Box
+Selection Criteria				| [Equivalence Partitioning]
+
+

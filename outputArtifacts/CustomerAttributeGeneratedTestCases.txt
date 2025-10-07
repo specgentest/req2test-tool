@@ -1,0 +1,8 @@
+TC-12						| Must create an instance of Customer
+Input						| [
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Expected Result				| must be equals current date + 5 years
+
+

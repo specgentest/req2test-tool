@@ -1,0 +1,37 @@
+TC-1						| Get an existing instance of Customer with the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+preconditions				| [The repository must have the instance that will be retrieved with the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, The following data: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository, returning a mocked instance of Customer with informed data, the same mocked in repository, 
+							Call method execute(idCustomer) in GetCustomerUseCase class and return an existing instance of Customer, 
+							Verify attributes of retrieved of Customer, 
+							Verify mocks]
+Expected Result				| Get an existing instance of Customer with the following attributes: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}
+
+TC-2						| getCustomerUseCase.execute(idCustomer) does not get an instance of Customer. CustomerException is thrown
+preconditions				| [The repository must have no instance and It must return false]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository, according to preconditions, 
+							Call method execute(idCustomer) in GetCustomerUseCase, 
+							Verify that CustomerException is thrown with the following error message: Customer not found, 
+							Verify mocks]
+Expected Result				| getCustomerUseCase.execute(idCustomer) does not get an instance of Customer. CustomerException is thrown
+
+TC-3						| DataBaseException is thrown
+preconditions				| []
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 ]
+Steps						| [
+							Inform {idCustomer=123e4567-e89b-12d3-a456-426614174000}, 
+							Mock findById method in CustomerRepository to return org.springframework.dao.DataIntegrityViolationException when try to retrieve Customer, 
+							Call method execute(idCustomer) in GetCustomerUseCase, 
+							Verify that DataBaseException is thrown, 
+							Verify mocks]
+Expected Result				| DataBaseException is thrown
+
+

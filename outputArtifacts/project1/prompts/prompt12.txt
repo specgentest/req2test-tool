@@ -1,0 +1,41 @@
+Context:
+        
+
+        
+
+Prompt:
+        
+Create the class CustomerGeneratedAttributeTest with JUnit5 to validate:
+Do not include generated attributes (e.g., id) in constructors.
+- licenseNumberExpirationDate as Date and with the following validation: must be equals current date + 5 years
+
+Use the following data as constructor parameters.
+Customer = {fullName=ValidString, licenseNumber=1234-56, birthDate=current date - 20 years}
+The test must create a Customer and validate if licenseNumberExpirationDate was generated correctly.
+Consider the existing classes (Do not implement them):
+
+Customer
+- fullName: String
+- licenseNumber: String
+- licenseNumberExpirationDate: Date
+- birthDate: Date
+
+The constructor of each class must accept all the attributes listed above as parameters.
+
+Consider type Date as LocalDate. Consider type Time as LocalTime.
+
+Ensure all model classes are imported from req2test.tool.outputArtefacts/project1.model.
+
+Ensure all exception classes are imported from req2test.tool.outputArtefacts/project1.exception.
+
+Add all necessary imports (e.g. Asserts and verify from JUnit5, LocalDate).
+Structure each test case using the Arrange-Act-Assert pattern: 
+                        first set up the necessary objects and data (Arrange), 
+                        then execute the operation being tested (Act), 
+                        and finally verify the result (Assert).
+                        
+Create only the CustomerGeneratedAttributeTest class as output from this prompt. 
+
+The classes [Customer] already exist. Do not create them.
+
+

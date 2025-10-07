@@ -1,0 +1,51 @@
+TC-1						| Create an instance of Customer and confirm that the createCustomerUseCase.execute(fullName, licenseNumber, birthDate) saves the instance when all data is valid and unique
+preconditions				| [The repository must be empty]
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Mock save method in CustomerRepository, returning a mocked instance of Customer with informed data: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Call method execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase class and return a saved instance of Customer, 
+							Verify attributes of created and saved instance of Customer: {idCustomer=123e4567-e89b-12d3-a456-426614174000, fullName=ValidString, licenseNumber=1234-56, licenseNumberExpirationDate=current date + 5 years, createdAt=current date, birthDate=current date - 20 years}, 
+							Verify mocks]
+Expected Result				| Create an instance of Customer and confirm that the createCustomerUseCase.execute(fullName, licenseNumber, birthDate) saves the instance when all data is valid and unique
+
+TC-2						| createCustomerUseCase.execute(fullName, licenseNumber, birthDate) does not save an instance of Customer. DataBaseException is thrown
+preconditions				| []
+Input						| [
+							idCustomer: 123e4567-e89b-12d3-a456-426614174000 , 
+							fullName: ValidString , 
+							licenseNumber: 1234-56 , 
+							licenseNumberExpirationDate: current date + 5 years , 
+							createdAt: current date , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							**Mock save method in CustomerRepository to return org.springframework.dao.DataIntegrityViolationException when try to save Customer**, 
+							Call method execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase, 
+							Verify that DataBaseException is thrown]
+Expected Result				| createCustomerUseCase.execute(fullName, licenseNumber, birthDate) does not save an instance of Customer. DataBaseException is thrown
+
+TC-3						| createCustomerUseCase.execute(fullName, licenseNumber, birthDate) return CustomerException with the following error message: fullName does not allow numbers and special characters
+preconditions				| []
+Input						| [
+							fullName: Invalid123 , 
+							licenseNumber: 1234-56 , 
+							birthDate: current date - 20 years ]
+Steps						| [
+							Inform fullName, 
+							Inform licenseNumber, 
+							Inform birthDate, 
+							Call method execute(fullName, licenseNumber, birthDate) in CreateCustomerUseCase, 
+							Verify that CustomerException is thrown with the following error message: fullName does not allow numbers and special characters, 
+							Verify that method save(Customer) from CustomerRepository was not called, 
+							Verify that the constructor Customer(fullName, licenseNumber, birthDate) was called]
+Expected Result				| createCustomerUseCase.execute(fullName, licenseNumber, birthDate) return CustomerException with the following error message: fullName does not allow numbers and special characters
+
+
